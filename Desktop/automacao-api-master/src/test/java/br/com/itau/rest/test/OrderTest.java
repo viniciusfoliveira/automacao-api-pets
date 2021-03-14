@@ -26,7 +26,6 @@ public class OrderTest {
 		Response r = Utils.responsePost(body, URL);
 
 		assertEquals(r.getStatusCode(), 200);
-
 	}
 	
 	@Test
@@ -41,7 +40,6 @@ public class OrderTest {
 		assertTrue(js.get("quantity").toString() != null);
 		assertTrue(js.get("shipDate").toString() != null);
 		assertTrue(js.get("status").toString() != null);
-		assertTrue(js.get("complete").toString() != null);
 	}
 	
 	@Test
