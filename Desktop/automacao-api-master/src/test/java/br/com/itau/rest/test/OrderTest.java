@@ -8,7 +8,7 @@ import org.junit.Test;
 import com.google.gson.Gson;
 
 import br.com.itau.rest.model.Orders;
-import br.com.itau.rest.utils.ResponseUtils;
+import br.com.itau.rest.utils.Utils;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 
@@ -23,7 +23,7 @@ public class OrderTest {
 		Gson gson = new Gson();
 		String body = gson.toJson(order);
 
-		Response r = ResponseUtils.responsePost(body, URL);
+		Response r = Utils.responsePost(body, URL);
 
 		assertEquals(r.getStatusCode(), 200);
 
@@ -32,7 +32,7 @@ public class OrderTest {
 	@Test
 	public void validNotNull(){
 	
-		Response r = ResponseUtils.responseGet(URL_GET);
+		Response r = Utils.responseGet(URL_GET);
 		
 		JsonPath js = new JsonPath(r.asString());
 
@@ -47,7 +47,7 @@ public class OrderTest {
 	@Test
 	public void validType() {
 
-		Response r = ResponseUtils.responseGet(URL_GET);
+		Response r = Utils.responseGet(URL_GET);
 		
 		JsonPath js = new JsonPath(r.asString());
 

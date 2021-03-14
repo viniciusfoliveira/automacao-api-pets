@@ -22,7 +22,7 @@ import com.google.gson.Gson;
 
 import br.com.itau.rest.model.Category;
 import br.com.itau.rest.model.Pets;
-import br.com.itau.rest.utils.ResponseUtils;
+import br.com.itau.rest.utils.Utils;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 
@@ -45,7 +45,7 @@ public class PetTest {
 
 		String body = gson.toJson(pet);
 
-		Response r = ResponseUtils.responsePost(body, URL);
+		Response r = Utils.responsePost(body, URL);
 
 		assertEquals(r.getStatusCode(), 200);
 
@@ -74,7 +74,7 @@ public class PetTest {
 	@Test
 	public void validNotNull() {
 
-		Response r = ResponseUtils.responseGet(URL_GET);
+		Response r = Utils.responseGet(URL_GET);
 
 		System.out.println(r.asString());
 
@@ -90,7 +90,7 @@ public class PetTest {
 	@Test
 	public void validType() {
 
-		Response r = ResponseUtils.responseGet(URL_GET);
+		Response r = Utils.responseGet(URL_GET);
 
 		JsonPath js = new JsonPath(r.asString());
 
@@ -122,9 +122,9 @@ public class PetTest {
 	@Test
 	public void generateMass() throws IllegalAccessException, JSONException, IOException {
 
-		for (int i = 0; i < pets().length(); i++) {
+		for (int i = 0; i < Utils.readJson("src/test/java/resources/json/massa.json").length(); i++) {
 
-			JSONObject ob = pets().getJSONObject(i);
+			JSONObject ob = Utils.readJson("src/test/java/resources/json/massa.json").getJSONObject(i);
 
 			Map<String, Object> tags = new HashMap<String, Object>();
 
@@ -166,24 +166,4 @@ public class PetTest {
 					maps);
 		}
 	}
-
-	private JSONArray pets() throws IllegalAccessException, IOException {
-
-		FileReader fr = new FileReader("src/test/java/resources/json/massa.json");
-		BufferedReader br = new BufferedReader(fr);
-		StringBuilder sb = new StringBuilder();
-		String line;
-		while ((line = br.readLine()) != null) {
-			sb = sb.append(line);
-		}
-
-		br.close();
-		fr.close();
-
-		JSONArray ja = new JSONArray(sb.toString());
-
-		return ja;
-
-	}
-
 }
